@@ -1,0 +1,42 @@
+export const offices = [
+	{
+		city: "Rajkot",
+		contact: "Nimit Kamdar | Kwachit Sheth",
+		address1: "“Aarivaa”, 14, Janta Janardan Society",
+		address2: "Race Course Road",
+		address3: "Rajkot – 360 001",
+		address4: "Gujarat, India",
+	},
+	{
+		city: "Bangalore",
+		contact: "Isha Katti | Janardhan Reddy",
+		address1: "377/1, Coffee Board Layout, 5th Main 7th Cross",
+		address2: "Kempapura",
+		address3: "Bangalore – 560 024",
+		address4: "Karnataka, India",
+	},
+	{
+		city: "London",
+		contact: "Sanjeev Sharma",
+		address1: "29 The Grove",
+		address2: "London",
+		address3: "Nw9 Otl",
+		address4: "UK",
+	},
+	{
+		city: "Guwahati",
+		contact: "Amit Agarwal",
+		address1: "Aartisans, Zabbar Market",
+		address2: "S.J. Road, Athgaon",
+		address3: "Guwahati – 781014",
+		address4: "Assam, India",
+	},
+	{
+		city: "Brisbane",
+		contact: "COMING SOON",
+		address1: "...",
+		address2: "",
+		address3: "",
+		address4: "",
+	},
+];
