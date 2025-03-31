@@ -16,8 +16,8 @@ const Contact = () => {
 				</div>
 			</div>
 			<div className="flex justify-between flex-wrap  gap-12">
-				{offices.map((office) => (
-					<Office office={office} />
+				{offices.map((office, idx) => (
+					<Office key={idx} office={office} />
 				))}
 			</div>
 		</div>
