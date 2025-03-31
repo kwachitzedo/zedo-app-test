@@ -30,7 +30,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${josefinSans.variable} antialiased font-sans`}>
+			<body
+				className={`${josefinSans.variable} ${geistMono.variable} ${geistSans.variable} antialiased font-sans`}
+			>
 				<Header />
 				{children}
 			</body>

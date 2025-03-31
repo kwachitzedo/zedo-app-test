@@ -26,10 +26,10 @@ const fetchProjectDetails = async (folderName: string) => {
 };
 
 export async function GET(
-	req: NextRequest,
-	{ params }: { params: { folderName: string } }
+	_request: NextRequest,
+	{ params }: { params: Promise<{ folderName: string }> }
 ) {
-	const { folderName } = params;
+	const { folderName } = await params;
 
 	if (!folderName) {
 		return NextResponse.json(

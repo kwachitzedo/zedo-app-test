@@ -22,9 +22,9 @@ const ProjectGallery = () => {
 		projectName: projectName,
 		folderName: folderName,
 		imageURL: "",
-		location: "India",
+		location: "",
 	});
-
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
@@ -35,7 +35,11 @@ const ProjectGallery = () => {
 				const result = await response.json();
 				setImages(result.images || []);
 			} catch (err) {
-				setError(err.message);
+				if (err instanceof Error) {
+					setError(err.message);
+				} else {
+					setError("An unknown error occurred.");
+				}
 			}
 		};
 
@@ -46,7 +50,11 @@ const ProjectGallery = () => {
 				const result = await response.json();
 				if (result.projectDetails) setProjectDetails(result.projectDetails);
 			} catch (err) {
-				setError(err.message);
+				if (err instanceof Error) {
+					setError(err.message);
+				} else {
+					setError("An unknown error occurred.");
+				}
 			}
 		};
 
