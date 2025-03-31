@@ -13,7 +13,7 @@ const ProjectGallery = () => {
 	const projectName = searchParams.get("name");
 	const [images, setImages] = useState(
 		Array(7).fill({
-			url: "https://dummyimage.com/300x200/cccccc/cccccc",
+			url: "https://dummyimage.com/1920x1080/cccccc/cccccc",
 		})
 	);
 
@@ -23,6 +23,7 @@ const ProjectGallery = () => {
 		folderName: folderName,
 		imageURL: "",
 		location: "",
+		description: "",
 	});
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [error, setError] = useState<string | null>(null);
@@ -63,26 +64,32 @@ const ProjectGallery = () => {
 	}, [folderName]);
 
 	return (
-		<div className="mx-auto p-4">
-			<div className=" font-bold text-center mb-4">
+		<div className="mx-auto p-4 max-w-3xl">
+			<div className=" font-bold text-left">
 				<div className="text-2xl">{projectDetails.projectName}</div>
-				<div className="text-xs">{projectDetails.location}</div>
+				<div className="text-sm">{projectDetails.location}</div>
+				<div className="text-sm font-medium  text-left my-6">
+					{projectDetails.description}
+				</div>
 			</div>
 			<div className="gap-14 flex flex-col">
 				{images.map((image: SingleImage, index: number) => (
-					<div key={index} className="overflow-hidden mx-auto">
+					<div
+						key={index}
+						className="overflow-hidden  flex justify-start bg-white"
+					>
 						<Image
-							className="object-cover"
+							className={`object-contain w-auto max-h-[90vh] max-w-full ${
+								image.url === "https://dummyimage.com/1920x1080/cccccc/cccccc"
+									? "animate-ping"
+									: ""
+							}`}
 							src={image.url}
 							alt={`Image ${index + 1}`}
 							width={1000}
 							height={800}
 							priority={index === 0}
 							loading={index === 0 ? "eager" : "lazy"}
-							// placeholder="blur"
-							// blurDataURL={`data:image/svg+xml;base64,${Buffer.from(
-							// 	'<svg width="1000" height="800" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#e2e8f0"/></svg>'
-							// ).toString("base64")}`}
 						/>
 					</div>
 				))}
