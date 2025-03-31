@@ -13,9 +13,9 @@ const Header = () => {
 	const listOfMenu = ["Home", "Studio", "Team", "Services", "Contact"];
 
 	return (
-		<header className=" relative bg-white">
-			<div className="mx-auto max-w-screen-7xl px-4 sm:px-6 lg:px-4">
-				<div className="flex h-auto items-center justify-between">
+		<header className=" h-[150px] flex items-center justify-between">
+			<div className="mx-auto  w-full max-w-7xl px-4 lg:px-0">
+				<div className="flex h-auto items-center justify-between ">
 					<div className="flex-1 md:flex md:items-center md:gap-12">
 						<Link className="block text-teal-600" href="/">
 							<span className="sr-only">Home</span>
@@ -23,8 +23,8 @@ const Header = () => {
 								<Image
 									src="/logo.jpg"
 									alt="Logo"
-									width={30}
-									height={40}
+									width={70}
+									height={100}
 									className="object-contain"
 								/>
 							</div>
@@ -98,7 +98,7 @@ const Header = () => {
 							<li key={item}>
 								<Link
 									className="block px-4 py-2 rounded-md hover:bg-gray-100"
-									href={`/${item.toLowerCase()}`}
+									href={`${item === "Home" ? "/" : `/${item.toLowerCase()}`}`}
 									onClick={toggleMenu}
 								>
 									{item}
