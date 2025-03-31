@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-	--font-sans: var(--font-josefin); /* Set Josefin Sans as the primary font */
+	--font-sans: var(--font-josefin);
 	--font-mono: var(--font-geist-mono);
 }
 
@@ -11,12 +11,12 @@
 	--font-primary: var(--font-josefin);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
 	:root {
 		--background: #0a0a0a;
 		--foreground: #ededed;
 	}
-}
+} */
 
 body {
 	color: var(--foreground);
