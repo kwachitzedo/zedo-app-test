@@ -14,17 +14,19 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
 	return (
 		<Link href={projectUrl} className="block">
-			<div className="bg-white border border-gray-300 mb-10 cursor-pointer">
-				<div className="mb-2">
+			<div className="bg-white mb-24 cursor-pointer w-lg">
+				<div className="relative mb-2  bg-gray-500 overflow-hidden">
 					<Image
 						src={project.imageURL}
 						alt={project.projectName}
-						width={900}
-						height={700}
+						width={0}
+						height={0}
+						sizes="100vw"
+						className="w-full h-auto object-cover"
 						priority
 					/>
 				</div>
-				<h2 className="text-lg text-center mt-2">{project.projectName}</h2>
+				<h2 className="text-lg text-left mt-2">{project.projectName}</h2>
 			</div>
 		</Link>
 	);
