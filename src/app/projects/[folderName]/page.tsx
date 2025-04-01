@@ -110,7 +110,7 @@ const ProjectGallery = () => {
 						<Image
 							className={`object-contain w-auto max-h-[90vh] max-w-full ${
 								image.url === "https://dummyimage.com/1920x1080/cccccc/cccccc"
-									? "animate-ping"
+									? "animate-pulse"
 									: ""
 							}`}
 							src={image.url}
