@@ -9,7 +9,13 @@ interface Project {
 }
 
 export default function HomepageData() {
-	const [data, setData] = useState<Project[] | null>(null);
+	const [data, setData] = useState<Project[]>(
+		Array(6).fill({
+			imageURL: "https://dummyimage.com/1920x1080/cccccc/cccccc",
+			projectName: "",
+			folderName: "",
+		})
+	);
 	const [error, setError] = useState<string | null>(null);
 	const [visibleCount, setVisibleCount] = useState(12); // Number of items to display initially
 
@@ -45,7 +51,6 @@ export default function HomepageData() {
 	}, [data, visibleCount]);
 
 	if (error) return <p className="text-red-500">Error: {error}</p>;
-	if (!data) return <p>Loading...</p>;
 
 	return (
 		<div className="max-w-7xl mx-auto">

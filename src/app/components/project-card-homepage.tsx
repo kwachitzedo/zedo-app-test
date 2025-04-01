@@ -22,7 +22,12 @@ const ProjectCard = ({ project }: { project: Project }) => {
 						width={0}
 						height={0}
 						sizes="100vw"
-						className="w-full h-auto object-cover"
+						className={`w-full h-auto object-cover ${
+							project.imageURL ===
+							"https://dummyimage.com/1920x1080/cccccc/cccccc"
+								? "animate-pulse"
+								: ""
+						}`}
 						priority
 					/>
 				</div>
