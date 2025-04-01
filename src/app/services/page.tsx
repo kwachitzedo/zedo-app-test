@@ -2,11 +2,6 @@
 
 import Image from "next/image";
 
-interface ImageData {
-	url: string;
-	name: string;
-}
-
 export default function Gallery() {
 	return (
 		<div className="flex  flex-col gap-4 mx-auto p-4 max-w-5xl">
