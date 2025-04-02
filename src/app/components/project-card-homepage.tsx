@@ -12,12 +12,17 @@ const ProjectCard = ({ project }: { project: Project }) => {
 		project.projectName
 	)}`;
 
+	if (project.imageURL === "") return;
+
 	return (
 		<Link href={projectUrl} className="block">
-			<div className="bg-white mb-24 cursor-pointer w-lg">
-				<div className="relative mb-2  bg-gray-500 overflow-hidden">
+			<div className="bg-white mb-24 cursor-pointer lg:w-lg w-auto ">
+				<div className="relative mb-2  bg-gray-500 overflow-hidden min-h-64">
 					<Image
-						src={project.imageURL}
+						src={
+							project.imageURL ??
+							"https://dummyimage.com/1920x1080/cccccc/cccccc"
+						}
 						alt={project.projectName}
 						width={0}
 						height={0}
