@@ -54,9 +54,11 @@ export default function HomepageData() {
 
 	return (
 		<div className="max-w-7xl mx-auto">
-			<div className="lg:columns-2 gap-48 columns-1 p-2 md:p-2 lg:p-1">
+			<div className="flex flex-wrap gap-4 p-2 md:p-2 lg:p-1 justify-between 	items-center">
 				{data.slice(0, visibleCount).map((project, index) => (
-					<ProjectCard key={index} project={project} />
+					<div key={index} className="w-full md:w-[48%] lg:w-fit">
+						<ProjectCard project={project} />
+					</div>
 				))}
 			</div>
 		</div>
