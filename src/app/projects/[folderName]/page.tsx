@@ -74,7 +74,6 @@ const ProjectGallery = () => {
 				const response = await fetch(`/api/project/details/${folderName}`);
 				if (!response.ok) throw new Error("Failed to fetch project details");
 				const result = await response.json();
-				console.log("result", result);
 				if (result.projectDetails) setProjectDetails(result.projectDetails);
 			} catch (err) {
 				if (err instanceof Error) {
@@ -121,7 +120,7 @@ const ProjectGallery = () => {
 			<div className="font-bold text-left">
 				<div className="text-2xl">{projectDetails.projectName}</div>
 				<div className="text-sm">{projectDetails.location}</div>
-				<div className="text-sm font-medium text-left my-6">
+				<div className="text-sm font-medium text-left my-6 whitespace-pre-line">
 					{projectDetails.description}
 				</div>
 			</div>
