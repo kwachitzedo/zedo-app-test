@@ -54,7 +54,7 @@ export default function HomepageData() {
 
 	return (
 		<div className="max-w-7xl mx-auto">
-			<div className="lg:columns-2 gap-48 columns-1 p-4 md:p-0">
+			<div className="lg:columns-2 gap-48 columns-1 p-2 md:p-2 lg:p-1">
 				{data.slice(0, visibleCount).map((project, index) => (
 					<ProjectCard key={index} project={project} />
 				))}

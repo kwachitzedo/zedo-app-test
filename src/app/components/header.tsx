@@ -13,7 +13,7 @@ const Header = () => {
 	const listOfMenu = ["Home", "Studio", "Team", "Services", "Contact"];
 
 	return (
-		<header className=" h-[150px] flex items-center justify-between">
+		<header className=" h-[150px] flex items-center justify-between p-4">
 			<div className="mx-auto  w-full max-w-7xl px-4 lg:px-0">
 				<div className="flex h-auto items-center justify-between ">
 					<div className="flex-1 md:flex md:items-center md:gap-12">
