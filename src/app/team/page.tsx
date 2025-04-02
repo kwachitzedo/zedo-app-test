@@ -8,6 +8,17 @@ interface TeamMember {
 	image: string;
 }
 
+const TeamCardSkeleton = () => {
+	return (
+		<div className="bg-white w-84 flex flex-col gap-2">
+			<div className="w-full h-56 bg-gray-200 animate-pulse" />
+			<div className="h-6 w-3/4 bg-gray-300 animate-pulse" />
+			<div className="h-4 w-full bg-gray-300 animate-pulse" />
+			<div className="h-4 w-full bg-gray-300 animate-pulse" />
+		</div>
+	);
+};
+
 export default function TeamData() {
 	const [data, setData] = useState<TeamMember[] | null>(null);
 	const [error, setError] = useState<string | null>(null);
@@ -37,15 +48,18 @@ export default function TeamData() {
 	}, []);
 
 	if (error) return <p className="text-red-500">Error: {error}</p>;
-	if (!data) return <p>Loading...</p>;
 
 	return (
 		<div className="p-10 max-w-7xl mx-auto">
 			<h1 className="text-2xl font-bold mb-4">Our Team</h1>
-			<div className="flex flex-wrap  justify-between gap-16">
-				{data.map((member, index) => (
-					<TeamCard key={index} member={member} />
-				))}
+			<div className="flex flex-wrap justify-between gap-16">
+				{data
+					? data.map((member, index) => (
+							<TeamCard key={index} member={member} />
+					  ))
+					: Array.from({ length: 6 }).map((_, index) => (
+							<TeamCardSkeleton key={index} />
+					  ))}
 			</div>
 		</div>
 	);
