@@ -12,17 +12,18 @@ const ProjectCard = ({ project }: { project: Project }) => {
 		project.projectName
 	)}`;
 
-	if (project.imageURL === "") return;
+	// if (project.imageURL === "") return;
+
+	const imageURL = project.imageURL?.includes("cloudinary")
+		? project.imageURL
+		: "https://dummyimage.com/1920x1080/cccccc/cccccc";
 
 	return (
 		<Link href={projectUrl} className="block">
 			<div className="bg-white mb-24 cursor-pointer lg:w-lg w-auto ">
 				<div className="relative mb-2  bg-gray-500 overflow-hidden min-h-64">
 					<Image
-						src={
-							project.imageURL ??
-							"https://dummyimage.com/1920x1080/cccccc/cccccc"
-						}
+						src={imageURL}
 						alt={project.projectName}
 						width={0}
 						height={0}
