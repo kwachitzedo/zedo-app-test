@@ -58,8 +58,13 @@ const ProjectGallery = () => {
 				const response = await fetch(`/api/project/images/${folderName}`);
 				if (!response.ok) throw new Error("Failed to fetch images");
 				const result = await response.json();
-				setAllImages(result.images || []);
-				setVisibleImages(result.images.slice(0, 6)); // Load the first 6 images
+
+				const sortedImages = (result.images || []).sort(
+					(a: SingleImage, b: SingleImage) => a.url.localeCompare(b.url)
+				);
+
+				setAllImages(sortedImages);
+				setVisibleImages(sortedImages.slice(0, 6));
 			} catch (err) {
 				if (err instanceof Error) {
 					setError(err.message);
