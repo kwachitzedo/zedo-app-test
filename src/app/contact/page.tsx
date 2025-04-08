@@ -1,6 +1,46 @@
-import React from "react";
-import { offices } from "@/data/data";
+"use client";
+import React, { useEffect, useState } from "react";
+import { offices as oldData } from "@/data/data";
+
+type OfficeType = {
+	city: string;
+	contact: string;
+	address1: string;
+	address2: string;
+	address3: string;
+	address4: string;
+};
 const Contact = () => {
+	const [data, setData] = useState<OfficeType[] | null>(null);
+	const [error, setError] = useState<string | null>(null);
+
+	useEffect(() => {
+		const storedData = localStorage.getItem("officeData");
+		if (storedData) {
+			setData(JSON.parse(storedData));
+			return;
+		}
+
+		const fetchData = async () => {
+			try {
+				const response = await fetch("/api/contact");
+				if (!response.ok) {
+					throw new Error("Failed to fetch data");
+				}
+				const fetchedData = await response.json();
+				setData(fetchedData);
+				localStorage.setItem("officeData", JSON.stringify(fetchedData));
+			} catch (err) {
+				setError((err as Error).message);
+			}
+		};
+
+		fetchData();
+	}, []);
+
+	if (error) return <p className="text-red-500">Error: {error}</p>;
+
+	const offices = data || oldData;
 	return (
 		<div className="max-w-5xl mx-auto  lg:p-0 p-4">
 			<div className=" pl-3 border-l mb-16">
@@ -22,15 +62,6 @@ const Contact = () => {
 			</div>
 		</div>
 	);
-};
-
-type OfficeType = {
-	city: string;
-	contact: string;
-	address1: string;
-	address2: string;
-	address3: string;
-	address4: string;
 };
 
 const Office = ({ office }: { office: OfficeType }) => {
