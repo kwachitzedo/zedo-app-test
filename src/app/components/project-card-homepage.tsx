@@ -21,7 +21,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
 	return (
 		<Link href={projectUrl} className="block">
 			<div className="bg-white mb-24 cursor-pointer lg:w-lg w-auto ">
-				<div className="relative mb-2  bg-gray-500 overflow-hidden min-h-64">
+				<div className="relative mb-2  bg-gray-500 overflow-hidden ">
 					<Image
 						src={imageURL}
 						alt={project.projectName}
