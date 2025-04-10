@@ -14,7 +14,6 @@ export default function Gallery() {
 			url: "https://dummyimage.com/1920x1080/cccccc/cccccc",
 		})
 	);
-	console.log("images", images);
 
 	useEffect(() => {
 		fetch("/api/studio") // Calls the Next.js API route
