@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import ProjectCard from "./project-card-homepage";
 
 interface Project {
@@ -20,9 +20,30 @@ export default function HomepageData() {
 		})
 	);
 	const [error, setError] = useState<string | null>(null);
-	const [visibleCount, setVisibleCount] = useState(12); // Number of items to display initially
+	const [visibleCount, setVisibleCount] = useState(12);
 	const [selectedTag, setSelectedTag] = useState("Featured");
 
+	// Fetch and cache data
+	useEffect(() => {
+		const loadData = async () => {
+			try {
+				const storedData = localStorage.getItem("homepageData");
+				if (storedData) {
+					setData(JSON.parse(storedData));
+				} else {
+					const res = await fetch("/api/homepage");
+					const fetchedData = await res.json();
+					setData(fetchedData);
+					localStorage.setItem("homepageData", JSON.stringify(fetchedData));
+				}
+			} catch (err: any) {
+				setError(err.message || "Failed to load data");
+			}
+		};
+		loadData();
+	}, []);
+
+	// Filtered data based on selected tag
 	const filteredData = useMemo(() => {
 		if (selectedTag === "All") return data;
 		return data.filter((item) =>
@@ -33,38 +54,22 @@ export default function HomepageData() {
 		);
 	}, [data, selectedTag]);
 
-	useEffect(() => {
-		const storedData = localStorage.getItem("homepageData");
-		if (storedData) {
-			setData(JSON.parse(storedData));
-		} else {
-			fetch("/api/homepage")
-				.then((res) => res.json())
-				.then((fetchedData) => {
-					setData(fetchedData);
-					localStorage.setItem("homepageData", JSON.stringify(fetchedData)); // Cache in localStorage
-				})
-				.catch((err) => setError(err.message));
-		}
-	}, []);
-
+	// Infinite scroll logic
 	useEffect(() => {
 		const handleScroll = () => {
-			if (
-				window.innerHeight + window.scrollY >=
-					document.body.offsetHeight - 300 &&
-				data &&
-				visibleCount < filteredData.length
-			) {
-				setVisibleCount((prevCount) => prevCount + 6); // Load 6 more items
+			const nearBottom =
+				window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
+			if (nearBottom && visibleCount < filteredData.length) {
+				setVisibleCount((prev) => prev + 6);
 			}
 		};
 
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
-	}, [filteredData, visibleCount]);
+	}, [filteredData.length, visibleCount]);
 
-	const allTags: string[] = useMemo<string[]>(() => {
+	// Extract unique tags
+	const allTags = useMemo(() => {
 		const tagSet = new Set<string>();
 		data.forEach((item) => {
 			item.tags?.split(",").forEach((tag) => {
@@ -79,15 +84,21 @@ export default function HomepageData() {
 			<FilterSection
 				allTags={allTags}
 				selectedTag={selectedTag}
-				setSelectedTag={setSelectedTag}
+				onTagChange={setSelectedTag}
 			/>
-			<div className="flex flex-wrap gap-4 p-2 md:p-2 lg:p-1 justify-between 	items-center">
+			<div className="flex flex-wrap gap-4 p-2 md:p-2 lg:p-1 justify-between items-center">
 				{filteredData.slice(0, visibleCount).map((project, index) => (
 					<div key={index} className="w-full md:w-[48%] lg:w-fit">
 						<ProjectCard project={project} />
 					</div>
 				))}
+				{!filteredData.length && (
+					<p className="text-center w-full text-gray-500 py-10">
+						No projects found.
+					</p>
+				)}
 			</div>
+			{error && <p className="text-center text-red-500 mt-4">Error: {error}</p>}
 		</div>
 	);
 }
@@ -95,24 +106,24 @@ export default function HomepageData() {
 interface FilterSectionProps {
 	allTags: string[];
 	selectedTag: string;
-	setSelectedTag: (tag: string) => void;
+	onTagChange: (tag: string) => void;
 }
 
 const FilterSection = ({
 	allTags,
 	selectedTag,
-	setSelectedTag,
+	onTagChange,
 }: FilterSectionProps) => {
 	return (
 		<div className="flex flex-wrap gap-2 p-4 bg-gray-50 mb-4">
 			{allTags.map((tag) => (
 				<button
 					key={tag}
-					onClick={() => setSelectedTag(tag)}
-					className={`px-4 py-2 border-b-4 ${
+					onClick={() => onTagChange(tag)}
+					className={`px-4 py-2 border-b-4 transition duration-200 ${
 						selectedTag === tag
-							? "border-red-700"
-							: "border-transparent hover:border-gray-200"
+							? "border-red-700 text-red-700 font-semibold"
+							: "border-transparent hover:border-gray-300"
 					}`}
 				>
 					{tag}
