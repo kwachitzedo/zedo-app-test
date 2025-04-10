@@ -46,6 +46,7 @@ export default function HomepageData() {
 	// Filtered data based on selected tag
 	const filteredData = useMemo(() => {
 		if (selectedTag === "All") return data;
+		if (selectedTag === "Featured" && data.length === 6) return data;
 		return data.filter((item) =>
 			item.tags
 				?.split(",")
@@ -92,11 +93,11 @@ export default function HomepageData() {
 						<ProjectCard project={project} />
 					</div>
 				))}
-				{!filteredData.length && (
+				{/* {!filteredData.length && (
 					<p className="text-center w-full text-gray-500 py-10">
 						No projects found.
 					</p>
-				)}
+				)} */}
 			</div>
 			{error && <p className="text-center text-red-500 mt-4">Error: {error}</p>}
 		</div>
