@@ -7,6 +7,11 @@ interface Project {
 	folderName: string;
 }
 
+function getOptimizedCloudinaryURL(url: string) {
+	if (!url.includes("res.cloudinary.com")) return url;
+	return url.replace("/upload/", "/upload/f_auto,q_auto:eco/");
+}
+
 const ProjectCard = ({ project }: { project: Project }) => {
 	const projectUrl = `/projects/${project.folderName}?name=${encodeURIComponent(
 		project.projectName
@@ -15,9 +20,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
 	// if (project.imageURL === "") return;
 
 	const imageURL = project.imageURL?.includes("cloudinary")
-		? project.imageURL
+		? getOptimizedCloudinaryURL(project.imageURL)
 		: "https://dummyimage.com/1920x1080/cccccc/cccccc";
-
 	return (
 		<Link href={projectUrl} className="block">
 			<div className="bg-white mb-24 cursor-pointer lg:w-lg w-auto ">

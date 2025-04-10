@@ -8,11 +8,19 @@ interface TeamCardProps {
 	member: TeamMember;
 }
 
+function getOptimizedCloudinaryURL(url: string) {
+	if (!url.includes("res.cloudinary.com")) return url;
+	return url.replace("/upload/", "/upload/f_auto,q_auto:good/");
+}
+
 export default function TeamCard({ member }: TeamCardProps) {
+	const imageURL = member.image?.includes("cloudinary")
+		? getOptimizedCloudinaryURL(member.image)
+		: "https://dummyimage.com/1920x1080/cccccc/cccccc";
 	return (
 		<div className="bg-white  max-w-84 flex flex-col gap-2">
 			<img
-				src={member.image}
+				src={imageURL}
 				alt={member.name}
 				className="w-full h-56 object-cover  mb-4"
 			/>
