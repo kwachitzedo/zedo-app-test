@@ -77,7 +77,11 @@ export default function HomepageData() {
 				if (tag.trim()) tagSet.add(tag.trim());
 			});
 		});
-		return ["Featured", "All", ...Array.from(tagSet)];
+		return [
+			"Featured",
+			"All",
+			...Array.from(tagSet).filter((tag) => tag !== "Featured"),
+		];
 	}, [data]);
 
 	return (
